@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { icons } from '../constants';
 

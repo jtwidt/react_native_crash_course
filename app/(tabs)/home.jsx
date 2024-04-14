@@ -1,12 +1,5 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  RefreshControl,
-  Alert,
-} from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Image, RefreshControl } from 'react-native';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { images } from '../../constants';
@@ -35,7 +28,6 @@ const Home = () => {
     <SafeAreaView className='bg-primary h-full'>
       <FlatList
         data={posts}
-        // data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => <VideoCard video={item} />}
         ListHeaderComponent={() => (

@@ -1,6 +1,6 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, View, Text, Image, Alert } from 'react-native';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { images } from '../../constants';
 import FormField from '../../components/FormField';
