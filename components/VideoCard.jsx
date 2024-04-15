@@ -1,18 +1,30 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { Video, ResizeMode } from 'expo-av';
+import { Octicons } from '@expo/vector-icons';
 
 import { icons } from '../constants';
+import { useGlobalContext } from '../context/GlobalProvider';
+import { toggleVideoLike } from '../lib/appwrite';
 
 const VideoCard = ({
   video: {
+    $id: id,
     title,
     thumbnail,
     video,
     creator: { username, avatar },
+    liked_by,
   },
 }) => {
+  const { user } = useGlobalContext();
   const [play, setPlay] = useState(false);
+  const [isLiked, setIsLiked] = useState(liked_by.includes(user?.$id));
+
+  const toggleLike = async () => {
+    await toggleVideoLike(isLiked, id, user?.$id);
+    setIsLiked(!isLiked);
+  };
 
   return (
     <View className='flex-col items-center px-4 mb-14'>
@@ -40,7 +52,17 @@ const VideoCard = ({
             </Text>
           </View>
         </View>
-        <View className='pt-2'>
+        <View className='pt-2 gap-3 flex-row'>
+          <TouchableOpacity
+            className='w-5 h-5 rounded-sm justify-center items-center'
+            onPress={toggleLike}
+          >
+            {isLiked ? (
+              <Octicons name='heart-fill' size={20} color='#cdcde0' />
+            ) : (
+              <Octicons name='heart' size={20} color='#cdcde0' />
+            )}
+          </TouchableOpacity>
           <Image source={icons.menu} className='w-5 h-5' resizeMode='contain' />
         </View>
       </View>
